@@ -200,43 +200,43 @@ const costsObserver = new IntersectionObserver((entries) => {
             const costAmounts = entry.target.querySelectorAll('.cost-amount');
             costAmounts.forEach((amount, index) => {
                 const target = parseInt(amount.getAttribute('data-target'));
-                animateCostCounter(amount, target, 2000, index * 200);
+                animateCostCounter(amount, target, 1200, index * 100);
             });
             
             // Animate total after all individual costs
             const totalNumber = entry.target.querySelector('.total-number');
             if (totalNumber) {
                 const totalTarget = parseInt(totalNumber.getAttribute('data-target'));
-                animateCostCounter(totalNumber, totalTarget, 2500, costAmounts.length * 200 + 300);
+                animateCostCounter(totalNumber, totalTarget, 1500, costAmounts.length * 100 + 200);
             }
         }
     });
-}, { threshold: 0.3 });
+}, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
 
 const costsSection = document.querySelector('.costs-section');
 if (costsSection) {
     costsObserver.observe(costsSection);
 }
 
-// Animate criteria list items one by one
+// Animate criteria boxes one by one
 const criteriaObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.classList.contains('criteria-animated')) {
             entry.target.classList.add('criteria-animated');
-            const criteriaItems = entry.target.querySelectorAll('.criteria-item');
-            criteriaItems.forEach((item, index) => {
+            const criteriaBoxes = entry.target.querySelectorAll('.criteria-box');
+            criteriaBoxes.forEach((box, index) => {
                 setTimeout(() => {
-                    item.classList.add('visible');
-                }, index * 200);
+                    box.classList.add('visible');
+                }, index * 150);
             });
         }
     });
 }, { threshold: 0.3 });
 
-// Find the reason card containing the criteria list
+// Find the reason card containing the criteria grid
 const allReasonCards = document.querySelectorAll('.reason-card');
 allReasonCards.forEach(card => {
-    if (card.querySelector('.criteria-list')) {
+    if (card.querySelector('.criteria-grid')) {
         criteriaObserver.observe(card);
     }
 });
